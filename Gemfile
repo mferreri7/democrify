@@ -10,12 +10,14 @@ gem 'rails', '5.2.1'
 gem 'redis'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap-sass', '~> 3.3'
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'sassc-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
+gem 'rspotify', git: "https://github.com/mferreri7/rspotify"
+
+# gem 'omniauth-spotify'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

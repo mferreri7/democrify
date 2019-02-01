@@ -1,2 +1,23 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+
+<!--       <iframe src="https://open.spotify.com/embed/user/paisna1/playlist/7qk4yceIPn0StP1pFIytlZ" width="600" height="660" frameborder="0" allowtransparency="true" allow="encrypted-media">
+      </iframe> -->
+
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <%= @spotify_user.playlists.map(&:name).size %>
+      <ul>
+        <% @tracks.each do |track| %>
+          <% if track.id != "7nAPRvSYSzGfSy2lPahjCQ" &&  track.id != "32cdqBgL7Q9e3inhwkfMYU" %>
+            <li>
+                <span><%= track.name %></span>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
