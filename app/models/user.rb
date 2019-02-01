@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :created_cleaners, class_name: "PlaylistCleaner", foreign_key: "creator_id"
+  has_many :playlist_cleaner_users
+  has_many :playlist_cleaners, through: :playlist_cleaner_users
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:spotify]
 

@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_025132) do
+ActiveRecord::Schema.define(version: 2019_02_01_150007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "playlist_cleaner_users", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "playlist_cleaner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["playlist_cleaner_id"], name: "index_playlist_cleaner_users_on_playlist_cleaner_id"
+    t.index ["user_id"], name: "index_playlist_cleaner_users_on_user_id"
+  end
+
+  create_table "playlist_cleaners", force: :cascade do |t|
+    t.bigint "creator_id"
+    t.string "spotify_playlist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_playlist_cleaners_on_creator_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -35,4 +52,6 @@ ActiveRecord::Schema.define(version: 2019_02_01_025132) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "playlist_cleaner_users", "playlist_cleaners"
+  add_foreign_key "playlist_cleaner_users", "users"
 end

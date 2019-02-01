@@ -1,0 +1,2 @@
+class PlaylistCleanersController < ApplicationController
+end
