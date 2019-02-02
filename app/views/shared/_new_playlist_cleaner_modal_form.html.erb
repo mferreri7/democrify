@@ -1,0 +1,26 @@
+<div class="modal fade" id="newPlaylistCleaner" tabindex="-1" role="dialog" aria-labelledby="newPlaylistCleanerLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newPlaylistCleanerLabel">Crea un nuevo sistema de votación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for(PlaylistCleaner.new) do |f| %>
+          <%= f.input :description  %>
+          <%= f.input :spotify_playlist_id, as: :select, collection: @user_playlists, value_method: :id, label_method: :name %>
+          <div class="div">
+
+          <%= f.association :users, collection: @users, input_html: { class: "js-example-basic-multiple form-control" }, label_method: :email, value_method: :id %>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit "Crear Nuevo Playlist Cleaner", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

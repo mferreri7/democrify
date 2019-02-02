@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_150007) do
+ActiveRecord::Schema.define(version: 2019_02_02_035018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,9 @@ ActiveRecord::Schema.define(version: 2019_02_01_150007) do
     t.string "spotify_playlist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "description"
+    t.string "playlist_name"
+    t.string "playlist_picture_url"
     t.index ["creator_id"], name: "index_playlist_cleaners_on_creator_id"
   end
 

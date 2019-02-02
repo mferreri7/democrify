@@ -12,7 +12,11 @@ class User < ApplicationRecord
     user_params = auth.slice(:provider, :uid)
     user_params.merge! auth.info.slice(:email, :display_name)
     user_params[:spotify_id] = auth.info.id
-    user_params[:spotify_picture_url] = auth.info.images.first.url
+    if auth.info.images.blank?
+      user_params[:spotify_picture_url] = "https://res.cloudinary.com/dnf96fubu/image/upload/v1520418809/facebook-profile-picture-no-pic-avatar.jpg"
+    else
+      user_params[:spotify_picture_url] = auth.info.images.first.url
+    end
     user_params[:token] = auth.credentials.token
     user_params[:token_expiry] = Time.at(auth.credentials.expires_at)
     user_params = user_params.to_h
