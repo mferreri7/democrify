@@ -9,5 +9,7 @@ Rails.application.routes.draw do
       root 'devise/sessions#new'
     end
   end
-  resources :playlist_cleaners, only: %w[index show create]
+  resources :playlist_cleaners, only: %w[index show create] do
+    resources :tracks, only: :show
+  end
 end

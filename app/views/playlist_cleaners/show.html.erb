@@ -12,6 +12,7 @@
                 <iframe class="embed-responsive-item" src="https://open.spotify.com/embed/track/<%= track.id %>" width="250" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </iframe>
                 <span><%= track.is_playable %></span>
+                <a href="/playlist_cleaners/<%= @playlist_cleaner.id %>/tracks/<%= track.id %>   "> test</a>
             </div>
           <%# end %>
         <% end %>
