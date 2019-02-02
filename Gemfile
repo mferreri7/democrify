@@ -17,8 +17,6 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'rspotify', git: "https://github.com/mferreri7/rspotify"
 
-# gem 'omniauth-spotify'
-
 group :development do
   gem 'web-console', '>= 3.3.0'
 end

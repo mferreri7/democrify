@@ -260,6 +260,7 @@ Devise.setup do |config|
   require 'rspotify/oauth'
 
   config.omniauth :spotify, ENV['SPOTIFY_CLIENT_ID'], ENV['SPOTIFY_CLIENT_SECRET'], scope: %w(
+    streaming
     user-read-birthdate
     user-read-email
     user-read-private

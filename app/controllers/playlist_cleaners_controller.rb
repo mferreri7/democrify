@@ -38,7 +38,12 @@ class PlaylistCleanersController < ApplicationController
   def set_playlist
     @playlist_cleaner = PlaylistCleaner.find(params[:id])
     @playlist = RSpotify::Playlist.find(@playlist_cleaner.creator.spotify_id, @playlist_cleaner.spotify_playlist_id)
-    @tracks = @playlist.tracks
+    @tracks = @playlist.tracks(limit: 30, offset: params[:offset].to_i, market: @spotify_user.country)
+    @tracks_from_db = Track.where(playlist_cleaner: @playlist_cleaner).map(&:spotify_id)
+    @tracks.each do |track|
+      track_exists = @tracks_from_db.include? track.id
+      Track.create(playlist_cleaner: @playlist_cleaner, spotify_id: track.id) unless track_exists
+    end
   end
 
   def playlist_cleaner_params

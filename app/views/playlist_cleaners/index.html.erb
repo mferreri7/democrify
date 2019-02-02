@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <% @playlist_cleaners.each do |playlist_cleaner| %>
       <div class="col-xs-12 col-sm-6 col-md-3">
-        <%= link_to playlist_cleaner_path(playlist_cleaner) do %>
+        <%= link_to playlist_cleaner_path(playlist_cleaner, offset: 0) do %>
           <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= playlist_cleaner.playlist_picture_url %>');">
             <div class="card-description">
               <h2><%= playlist_cleaner.playlist_name %></h2>

@@ -5,23 +5,20 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-12 col-sm-6 text-center mt-4">
-
-      <iframe src="https://open.spotify.com/embed/user/<%= @spotify_user.id %>/playlist/<%= @playlist.id %>" width="300" height="600" frameborder="0" allowtransparency="true" allow="encrypted-media">
-      </iframe>
-
-    </div>
-    <div class="col-12 col-sm-6 text-center mt-4">
-      <ul>
+    <div class="col-12">
+      <div class="songs-list">
         <% @tracks.each do |track| %>
-          <% if track.id != "7nAPRvSYSzGfSy2lPahjCQ" &&  track.id != "32cdqBgL7Q9e3inhwkfMYU" %>
-            <li>
-                <span><%= track.name %></span>
-            </li>
-          <% end %>
+            <div class="song-item">
+                <iframe class="embed-responsive-item" src="https://open.spotify.com/embed/track/<%= track.id %>" width="250" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                </iframe>
+                <span><%= track.is_playable %></span>
+            </div>
+          <%# end %>
         <% end %>
-      </ul>
+      </div>
     </div>
   </div>
 </div>
 
+
+</script>
