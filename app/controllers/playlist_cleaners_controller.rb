@@ -1,6 +1,12 @@
 class PlaylistCleanersController < ApplicationController
-  before_action :set_data
+  before_action :set_spotify_user
+  before_action :set_data, only: %w[index create]
+  before_action :set_playlist, only: %w[show]
+
   def index
+  end
+
+  def show
   end
 
   def create
@@ -19,11 +25,20 @@ class PlaylistCleanersController < ApplicationController
 
   private
 
-  def set_data
+  def set_spotify_user
     @spotify_user = RSpotify::User.new(current_user.spotify_user_hash)
+  end
+
+  def set_data
     @user_playlists = @spotify_user.playlists
     @users = User.where.not(id: current_user.id)
     @playlist_cleaners = PlaylistCleaner.where(creator: current_user)
+  end
+
+  def set_playlist
+    @playlist_cleaner = PlaylistCleaner.find(params[:id])
+    @playlist = RSpotify::Playlist.find(@playlist_cleaner.creator.spotify_id, @playlist_cleaner.spotify_playlist_id)
+    @tracks = @playlist.tracks
   end
 
   def playlist_cleaner_params
