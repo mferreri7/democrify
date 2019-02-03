@@ -1,5 +1,5 @@
 {
-  "name": "top-20-novedades-colombia",
+  "name": "democrify",
   "private": true,
   "dependencies": {
     "@rails/webpacker": "3.5",
