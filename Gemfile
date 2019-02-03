@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'rspotify', git: "https://github.com/mferreri7/rspotify"
+gem 'rename'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

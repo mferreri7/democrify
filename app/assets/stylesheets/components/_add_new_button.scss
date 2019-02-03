@@ -2,11 +2,11 @@
   height: 175px;
   margin-top: 15px;
   // text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-  color: $brand-primary;
+  color: $primary;
   position: relative;
   border:1px rgba(0, 0, 0, 0.1) solid;
   border-radius: 8px;
-  background-color: rgba($brand-primary, 0.2);
+  background-color: rgba($primary, 0.2);
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -22,6 +22,6 @@
 }
 
 .add-new-button:hover {
-  background-color: rgba($brand-primary, 1);
+  background-color: rgba($primary, 1);
   color: white;
 }

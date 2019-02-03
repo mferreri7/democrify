@@ -27,10 +27,11 @@ class PlaylistCleanersController < ApplicationController
 
   def set_spotify_user
     @spotify_user = RSpotify::User.new(current_user.spotify_user_hash)
+    @user_playlists = @spotify_user.playlists
+    @user_colaborativ_playlists = @user_playlists.keep_if { |playlist| playlist.collaborative }
   end
 
   def set_data
-    @user_playlists = @spotify_user.playlists
     @users = User.where.not(id: current_user.id)
     @playlist_cleaners = PlaylistCleaner.where(creator: current_user)
   end

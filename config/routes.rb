@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     end
   end
   resources :playlist_cleaners, only: %w[index show create] do
-    resources :tracks, only: :show
+    resources :tracks, only: :show do
+      member do
+        post 'vote_move'
+        post 'vote_delete'
+      end
+    end
   end
 end
