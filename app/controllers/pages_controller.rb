@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home]
 
   def home
+    @spotify_user = RSpotify::User.new(current_user.spotify_user_hash)
   end
 end
