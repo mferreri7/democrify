@@ -33,7 +33,7 @@ class PlaylistCleanersController < ApplicationController
 
   def set_data
     @users = User.where.not(id: current_user.id)
-    @playlist_cleaners = PlaylistCleaner.where(creator: current_user)
+    @playlist_cleaners = current_user.playlist_cleaners #PlaylistCleaner.where(creator: current_user)
   end
 
   def set_playlist
@@ -45,6 +45,7 @@ class PlaylistCleanersController < ApplicationController
       track_exists = @tracks_from_db.include? track.id
       Track.create(playlist_cleaner: @playlist_cleaner, spotify_id: track.id) unless track_exists
     end
+    @user_votes = current_user.votes.joins(:track).map { |vote| vote.track.spotify_id }
   end
 
   def playlist_cleaner_params

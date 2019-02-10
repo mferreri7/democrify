@@ -1,0 +1,24 @@
+<% unless @votes.blank? %>
+  <h5 class="text-center">Votes</h5>
+  <div class="d-flex flex-wrap h-100 w-100">
+    <div class="w-50">
+      <h6 class="text-center">Relocate</h6>
+      <% @keep_votes.each do |k, v| %>
+        <div class="w-100 d-flex justify-content-start align-items-center">
+          <% v.each do |votes| %>
+            <img src="<%= votes[1] %>" class="card-user-small">
+          <% end %>
+          <p class="m-0"><%= k %></p>
+        </div>
+      <% end %>
+    </div>
+    <div class="w-50">
+      <h6 class="text-center" >Delete</h6>
+      <% @delete_votes.each do |vote| %>
+        <div class="w-100">
+          <img src="<%= vote.user.spotify_picture_url %>" class="card-user-small">
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
