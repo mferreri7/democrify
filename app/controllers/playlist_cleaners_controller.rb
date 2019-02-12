@@ -52,9 +52,14 @@ class PlaylistCleanersController < ApplicationController
     params.require(:playlist_cleaner).permit(:spotify_playlist_id, :description, :user_ids)
   end
 
-  def add_users_to_playlist_cleaner(user_ids)
-    user_ids.each do |id|
-      @playlist_cleaner.users << User.find(id.to_i) unless id.blank?
+  def add_users_to_playlist_cleaner(user_emails)
+    user_emails.each do |email|
+      user = User.find_by(email: email)
+      if user
+        @playlist_cleaner.users << user unless email.blank?
+      else
+        @playlist_cleaner.invites << Invite.new(user_email: email) unless email.blank?
+      end
     end
     @playlist_cleaner.users << current_user
   end

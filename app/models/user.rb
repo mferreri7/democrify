@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_create :add_to_existing_playlist_cleaners
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :created_cleaners, class_name: "PlaylistCleaner", foreign_key: "creator_id"
@@ -35,5 +36,11 @@ class User < ApplicationRecord
 
     return user
   end
-end
 
+  def add_to_existing_playlist_cleaners
+    invites = Invite.where(user_email: email)
+    invites.each do |invite|
+      invite.playlist_cleaner.users << self
+    end
+  end
+end
