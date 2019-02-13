@@ -6,4 +6,8 @@ class PlaylistCleaner < ApplicationRecord
   has_many :invites, dependent: :destroy
 
   validates :spotify_playlist_id, :description, presence: true
+
+  def votes_required_for_democracy
+    (users.size / 2).floor + 1
+  end
 end

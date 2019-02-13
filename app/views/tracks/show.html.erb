@@ -14,11 +14,11 @@
     </div>
     <div class="w-50 votes-category votes-category--red">
       <h6 class="text-center votes-subtitle votes-subtitle--red" >Delete</h6>
-      <% @delete_votes.each do |vote| %>
         <div class="w-100 text-center">
-          <img src="<%= vote.user.spotify_picture_url %>" class="card-user-small">
+          <% @delete_votes.each do |vote| %>
+            <img src="<%= vote.user.spotify_picture_url %>" class="card-user-small">
+          <% end %>
         </div>
-      <% end %>
     </div>
   </div>
 <% end %>

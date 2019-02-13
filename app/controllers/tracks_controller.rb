@@ -12,6 +12,7 @@ class TracksController < ApplicationController
 
   def vote_delete
     register_vote("Delete")
+    delete_track_from_playlist
   end
 
   private
@@ -33,5 +34,15 @@ class TracksController < ApplicationController
     vote.user = current_user
     vote.category = category
     @track.votes << vote
+  end
+
+  def delete_track_from_playlist
+    required_votes = @playlist_cleaner.votes_required_for_democracy
+    track_votes_for_category = @track.votes.where(category: "Delete").size
+    if track_votes_for_category >= required_votes
+      playlist = RSpotify::Playlist.find(@playlist_cleaner.creator.spotify_id, @playlist_cleaner.spotify_playlist_id)
+      track = RSpotify::Track.find(@track.spotify_id)
+      playlist.remove_tracks!([track])
+    end
   end
 end
