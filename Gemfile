@@ -16,9 +16,12 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'rspotify', git: "https://github.com/mferreri7/rspotify"
+gem 'mailjet'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+  gem "letter_opener"
+  gem 'erd'
 end
 
 group :development, :test do

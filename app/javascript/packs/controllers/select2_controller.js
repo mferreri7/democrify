@@ -11,7 +11,9 @@ export default class extends Controller {
 
   select2mount() {
     $(this.multiSelectTarget).select2({
-      tags: true
+      width:'80%',
+      tags: true,
+      tokenSeparators: [';', ',', ' ']
     });
   }
 }

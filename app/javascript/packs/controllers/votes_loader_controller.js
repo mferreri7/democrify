@@ -5,9 +5,9 @@ export default class extends Controller {
 
   connect() {
     this.load()
-    // if (this.data.has("refreshInterval")) {
-    //   this.startRefreshing()
-    // }
+    if (this.data.has("refreshInterval")) {
+      this.startRefreshing()
+    }
   }
 
   disconnect() {
