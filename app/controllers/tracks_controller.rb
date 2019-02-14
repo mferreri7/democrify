@@ -1,14 +1,48 @@
 class TracksController < ApplicationController
+  before_action :set_track
+
   def show
-    @playlist_cleaner = PlaylistCleaner.find(params[:playlist_cleaner_id])
-    @track = Track.where(playlist_cleaner: @playlist_cleaner).find_by(spotify_id: params[:id])
-    render json: @track, include: :votes
+    render layout: false
+    # render json: @track, include: :votes
   end
 
   def vote_move
-    raise
+    register_vote("Relocate")
   end
 
   def vote_delete
+    register_vote("Delete")
+    delete_track_from_playlist
+  end
+
+  private
+
+  def set_track
+    @playlist_cleaner = PlaylistCleaner.find(params[:playlist_cleaner_id])
+    @track = Track.where(playlist_cleaner: @playlist_cleaner).find_by(spotify_id: params[:id])
+    @votes = @track.votes
+    @keep_votes = @votes.where(category: "Relocate").joins(:user).pluck("spotify_playlist_name, users.spotify_picture_url").group_by { |i| i[0] }
+    @delete_votes = @votes.where(category: "Delete")
+  end
+
+  def vote_params
+    params.permit(:spotify_playlist_id, :spotify_playlist_name)
+  end
+
+  def register_vote(category)
+    vote = Vote.new(vote_params)
+    vote.user = current_user
+    vote.category = category
+    @track.votes << vote
+  end
+
+  def delete_track_from_playlist
+    required_votes = @playlist_cleaner.votes_required_for_democracy
+    track_votes_for_category = @track.votes.where(category: "Delete").size
+    if track_votes_for_category >= required_votes
+      playlist = RSpotify::Playlist.find(@playlist_cleaner.creator.spotify_id, @playlist_cleaner.spotify_playlist_id)
+      track = RSpotify::Track.find(@track.spotify_id)
+      playlist.remove_tracks!([track])
+    end
   end
 end

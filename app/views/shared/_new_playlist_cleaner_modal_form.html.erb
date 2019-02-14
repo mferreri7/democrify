@@ -2,7 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="newPlaylistCleanerLabel">Crea un nuevo sistema de votación</h5>
+        <h5 class="modal-title text-center playlist-cleaner-title" id="newPlaylistCleanerLabel">Create a new playlist voting system</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -11,12 +11,12 @@
         <%= simple_form_for(PlaylistCleaner.new) do |f| %>
           <%= f.input :description  %>
           <%= f.input :spotify_playlist_id, as: :select, collection: @user_playlists, value_method: :id, label_method: :name %>
-          <div class="div">
+          <div data-controller="select2" class="form-group">
 
-          <%= f.association :users, collection: @users, input_html: { class: "js-example-basic-multiple form-control" }, label_method: :email, value_method: :id %>
+          <%= f.association :users, collection: @users, input_html: { class: "form-control", data: { target: "select2.multiSelect" } }, label_method: :email, value_method: :email, multiple: true %>
           </div>
-          <div class="modal-footer">
-            <%= f.submit "Crear Nuevo Playlist Cleaner", class: "btn btn-primary" %>
+          <div class="modal-footer d-flex justify-content-center">
+            <%= f.submit "Start democrifying my playlist", class: "btn spotify-btn" %>
           </div>
         <% end %>
 

@@ -1,6 +1,16 @@
 <div class="container-fluid">
   <div class="row">
-    <% @playlist_cleaners.each do |playlist_cleaner| %>
+    <div class="col-12">
+      <h2 class="text-center playlist-cleaner-title m-3">
+        <% if @created_playlist_cleaners.size.zero? %>
+          Create your first collaborative playlist cleaner
+        <% else %>
+          Created by me
+        <% end %>
+      </h2>
+    </div>
+    <div class="w-100"></div>
+    <% @created_playlist_cleaners.each do |playlist_cleaner| %>
       <div class="col-xs-12 col-sm-6 col-md-3">
         <%= link_to playlist_cleaner_path(playlist_cleaner, offset: 0) do %>
           <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= playlist_cleaner.playlist_picture_url %>');">
@@ -29,6 +39,37 @@
         <i class="fas fa-plus-circle"></i>
       </a>
     </div>
+  </div>
+  <div class="row">
+    <% if @shared_playlist_cleaners.size.positive? %>
+      <div class="col-12">
+        <h2 class="text-center playlist-cleaner-title m-3">Shared With Me</h2>
+      </div>
+      <div class="w-100"></div>
+      <% @shared_playlist_cleaners.each do |playlist_cleaner| %>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <%= link_to playlist_cleaner_path(playlist_cleaner, offset: 0) do %>
+            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('<%= playlist_cleaner.playlist_picture_url %>');">
+              <div class="card-description">
+                <h2><%= playlist_cleaner.playlist_name %></h2>
+                <div class="card-category"><%= playlist_cleaner.description %></div>
+              </div>
+              <div class="card-users-container">
+                <% cleaner_users = playlist_cleaner.users  %>
+                <% cleaner_users[0..3].each do |user| %>
+                  <img class="card-user" src="<%= user.spotify_picture_url %>" data-toggle="tooltip" data-placement="top" title="<%= user.display_name %>">
+                <% end %>
+                <% if cleaner_users.size > 4 %>
+                  <div class="rest-of-table-users">
+                    <span>+<%= cleaner_users.size - 4 %></span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <%= render 'shared/new_playlist_cleaner_modal_form' %>

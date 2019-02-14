@@ -1,0 +1,8 @@
+<h1>Hello</h1>
+
+<p>
+  <%= @user.display_name %>, invite you to be part of a playlist cleaning process
+</p>
+
+<%= link_to "Go there", playlist_cleaner_url(@playlist_cleaner, offset: 0)  %>
+
