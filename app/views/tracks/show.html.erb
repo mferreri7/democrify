@@ -1,8 +1,17 @@
 <% unless @votes.blank? %>
-  <h5 class="text-center votes-title mt-1">Votes</h5>
+  <h5 class="text-center votes-title mt-1">
+    Votes
+  </h5>
   <div class="d-flex flex-wrap h-100 w-100">
     <div class="w-50 votes-category votes-category--green">
-      <h6 class="text-center votes-subtitle votes-subtitle--green">Relocate</h6>
+      <h6 class="text-center votes-subtitle votes-subtitle--green">
+        <% if @relocate_won %>
+          <b>Relocate (Won)</b>
+          <i class="fas fa-check-circle"></i>
+        <% else %>
+          Relocate
+        <% end %>
+       </h6>
       <% @keep_votes.each do |k, v| %>
         <div class="w-100 d-flex justify-content-start align-items-center">
           <% v.each do |votes| %>
@@ -21,20 +30,34 @@
       <% end %>
     </div>
     <div class="w-50 votes-category votes-category--red">
-      <h6 class="text-center votes-subtitle votes-subtitle--red" >Delete</h6>
-        <div class="w-100 text-center">
-          <% @delete_votes.each do |vote| %>
-            <img
-              src="<%= vote.user.spotify_picture_url %>"
-              class="card-user-small"
-              data-toggle="tooltip"
-              data-placement="top"
-              title="<%= vote.user.display_name %>"
-              data-target="picture.tooltip"
-              data-controller="tooltip"
-            >
-          <% end %>
-        </div>
+      <h6 class="text-center votes-subtitle votes-subtitle--red" >
+        <% if @delete_won %>
+          <b>Delete (Won)</b>
+          <i class="fas fa-check-circle"></i>
+        <% else %>
+          Delete
+        <% end %>
+      </h6>
+      <div class="w-100 text-center">
+        <% @delete_votes.each do |vote| %>
+          <img
+            src="<%= vote.user.spotify_picture_url %>"
+            class="card-user-small"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="<%= vote.user.display_name %>"
+            data-target="picture.tooltip"
+            data-controller="tooltip"
+          >
+        <% end %>
+      </div>
     </div>
   </div>
+  <% if @delete_won || @relocate_won %>
+    <div class="w-100 mt-1 pt-1">
+      <p class="text-center votes-action m-0">
+        This track will be <%= relocate_or_delete(@relocate_won, @delete_won) %> in <%= distance_of_time_in_words_to_now(Date.tomorrow.midnight) %>
+      </p>
+    </div>
+  <% end %>
 <% end %>
