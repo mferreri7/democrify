@@ -17,6 +17,8 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'rspotify', git: "https://github.com/mferreri7/rspotify"
 gem 'mailjet'
+gem 'sidekiq'
+gem 'sidekiq-failures', '~> 1.0'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

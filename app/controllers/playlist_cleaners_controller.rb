@@ -16,7 +16,7 @@ class PlaylistCleanersController < ApplicationController
       add_users_to_playlist_cleaner(params[:playlist_cleaner][:user_ids])
       flash[:notice] = "Succefully created"
       redirect_to playlist_cleaners_path
-      UpdatePlaylistInfoJob.perform_now(@playlist_cleaner.id, current_user.spotify_id)
+      UpdatePlaylistInfoJob.perform_later(@playlist_cleaner.id, current_user.spotify_id)
     else
       flash.now[:alert] = "Something went wrong, please try again"
       render 'index'
