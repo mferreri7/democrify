@@ -29,6 +29,7 @@ class PlaylistCleanersController < ApplicationController
     @spotify_user = RSpotify::User.new(current_user.spotify_user_hash)
     @user_playlists = @spotify_user.playlists
     @user_colaborative_playlists = @user_playlists.keep_if(&:collaborative)
+    @playlist_cleaner = PlaylistCleaner.new
   end
 
   def set_data
@@ -39,6 +40,7 @@ class PlaylistCleanersController < ApplicationController
 
   def set_playlist
     @playlist_cleaner = PlaylistCleaner.find(params[:id])
+    @user_colaborative_playlists_to_relocate = @user_colaborative_playlists.keep_if { |playlist| playlist.name != @playlist_cleaner.playlist_name }
     @playlist = RSpotify::Playlist.find(@playlist_cleaner.creator.spotify_id, @playlist_cleaner.spotify_playlist_id)
     @tracks = @playlist.tracks(limit: 30, offset: params[:offset].to_i, market: @spotify_user.country)
     @tracks_from_db = Track.where(playlist_cleaner: @playlist_cleaner).map(&:spotify_id)
@@ -61,7 +63,7 @@ class PlaylistCleanersController < ApplicationController
       else
         @playlist_cleaner.invites << Invite.new(user_email: email) unless email.blank?
       end
-        PlaylistCleanerMailer.invite(email, current_user, @playlist_cleaner).deliver_now unless email.blank?
+        PlaylistCleanerMailer.invite(email, current_user, @playlist_cleaner).deliver_later unless email.blank?
     end
     @playlist_cleaner.users << current_user
   end

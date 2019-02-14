@@ -21,7 +21,14 @@
             <div class="card-users-container">
               <% cleaner_users = playlist_cleaner.users  %>
               <% cleaner_users[0..3].each do |user| %>
-                <img class="card-user" src="<%= user.spotify_picture_url %>" data-toggle="tooltip" data-placement="top" title="<%= user.display_name %>">
+                <img
+                  class="card-user"
+                  src="<%= user.spotify_picture_url %>"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="<%= user.display_name %>"
+                  data-controller="tooltip"
+                >
               <% end %>
               <% if cleaner_users.size > 4 %>
                 <div class="rest-of-table-users">
@@ -57,7 +64,14 @@
               <div class="card-users-container">
                 <% cleaner_users = playlist_cleaner.users  %>
                 <% cleaner_users[0..3].each do |user| %>
-                  <img class="card-user" src="<%= user.spotify_picture_url %>" data-toggle="tooltip" data-placement="top" title="<%= user.display_name %>">
+                  <img
+                    class="card-user"
+                    src="<%= user.spotify_picture_url %>"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="<%= user.display_name %>"
+                    data-controller="tooltip"
+                  >
                 <% end %>
                 <% if cleaner_users.size > 4 %>
                   <div class="rest-of-table-users">

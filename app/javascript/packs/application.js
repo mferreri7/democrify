@@ -1,6 +1,4 @@
 import "bootstrap";
-import 'select2/dist/css/select2.css';
-import '../components/init_tooltip';
 import Turbolinks from 'turbolinks';
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"

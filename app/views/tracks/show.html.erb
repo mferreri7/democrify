@@ -6,7 +6,15 @@
       <% @keep_votes.each do |k, v| %>
         <div class="w-100 d-flex justify-content-start align-items-center">
           <% v.each do |votes| %>
-            <img src="<%= votes[1] %>" class="card-user-small">
+            <img
+              src="<%= votes[1] %>"
+              class="card-user-small"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="<%= votes[2] %>"
+              data-target="picture.tooltip"
+              data-controller="tooltip"
+            >
           <% end %>
           <p class="m-0 vote-playlist-name"><%= k %></p>
         </div>
@@ -16,7 +24,15 @@
       <h6 class="text-center votes-subtitle votes-subtitle--red" >Delete</h6>
         <div class="w-100 text-center">
           <% @delete_votes.each do |vote| %>
-            <img src="<%= vote.user.spotify_picture_url %>" class="card-user-small">
+            <img
+              src="<%= vote.user.spotify_picture_url %>"
+              class="card-user-small"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="<%= vote.user.display_name %>"
+              data-target="picture.tooltip"
+              data-controller="tooltip"
+            >
           <% end %>
         </div>
     </div>

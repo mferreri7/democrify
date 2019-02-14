@@ -21,7 +21,7 @@ class TracksController < ApplicationController
     @playlist_cleaner = PlaylistCleaner.find(params[:playlist_cleaner_id])
     @track = Track.where(playlist_cleaner: @playlist_cleaner).find_by(spotify_id: params[:id])
     @votes = @track.votes
-    @keep_votes = @votes.where(category: "Relocate").joins(:user).pluck("spotify_playlist_name, users.spotify_picture_url").group_by { |i| i[0] }
+    @keep_votes = @votes.where(category: "Relocate").joins(:user).pluck("spotify_playlist_name, users.spotify_picture_url, users.display_name").group_by { |i| i[0] }
     @delete_votes = @votes.where(category: "Delete")
   end
 
@@ -39,10 +39,11 @@ class TracksController < ApplicationController
   def delete_track_from_playlist
     required_votes = @playlist_cleaner.votes_required_for_democracy
     track_votes_for_category = @track.votes.where(category: "Delete").size
-    if track_votes_for_category >= required_votes
-      playlist = RSpotify::Playlist.find(@playlist_cleaner.creator.spotify_id, @playlist_cleaner.spotify_playlist_id)
-      track = RSpotify::Track.find(@track.spotify_id)
-      playlist.remove_tracks!([track])
-    end
+    DeleteTrackFromPlaylistJob.set(wait: 1.minute).perform_later(
+      current_user.id,
+      @playlist_cleaner.creator.spotify_id,
+      @playlist_cleaner.spotify_playlist_id,
+      @track.spotify_id
+    ) if track_votes_for_category >= required_votes
   end
 end

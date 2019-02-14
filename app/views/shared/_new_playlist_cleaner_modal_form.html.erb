@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <%= simple_form_for(PlaylistCleaner.new) do |f| %>
+        <%= simple_form_for(@playlist_cleaner) do |f| %>
           <%= f.input :description  %>
           <%= f.input :spotify_playlist_id, as: :select, collection: @user_playlists, value_method: :id, label_method: :name %>
           <div data-controller="select2" class="form-group">
