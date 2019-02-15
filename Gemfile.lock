@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/mferreri7/rspotify
-  revision: 8ebdb2a21b30f9fe265a7dc12b4161d3436a4a77
+  revision: 27777955669bffff92333521e857b09073a8fa3c
   specs:
     rspotify (2.4.1)
       addressable (~> 2.5.2)

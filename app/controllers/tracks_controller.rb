@@ -55,7 +55,7 @@ class TracksController < ApplicationController
       act_on_track = track_relocate_votes.any? { |_k, v| v >= @required_votes }
       winner_playlist_to_relocate = track_relocate_votes.keep_if { |_k, v| v >= @required_votes } if act_on_track
     end
-    ActOnTrackFromPlaylistJob.set(wait_until: Date.tomorrow.midnight).perform_later(
+    ActOnTrackFromPlaylistJob.perform_later( #set(wait_until: Date.tomorrow.midnight).perform_later(
       user_id: current_user.id,
       spotify_user_id: @playlist_cleaner.creator.spotify_id,
       spotify_playlist_id: @playlist_cleaner.spotify_playlist_id,
