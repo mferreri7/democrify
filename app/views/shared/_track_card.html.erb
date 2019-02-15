@@ -3,7 +3,7 @@
   data-spotify-track-id="<%= track.id %>"
   data-controller="votes-loader"
   data-votes-loader-url="/playlist_cleaners/<%= @playlist_cleaner.id %>/tracks/<%= track.id %>"
-  data-votes-loader-refresh-interval="5000"
+  data-votes-loader-refresh-interval="2000"
 >
   <iframe class="embed-responsive-item" src="https://open.spotify.com/embed/track/<%= track.id %>" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
   </iframe>
