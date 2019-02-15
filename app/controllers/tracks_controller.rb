@@ -16,6 +16,13 @@ class TracksController < ApplicationController
     act_on_track_from_playlist?("Delete")
   end
 
+  def save_to_library
+    @spotify_user = RSpotify::User.new(current_user.spotify_user_hash)
+    track = RSpotify::Track.find(@track.spotify_id)
+    @spotify_user.save_tracks!([track])
+    @track.update(saved_to_library: true)
+  end
+
   private
 
   def set_track
@@ -34,10 +41,10 @@ class TracksController < ApplicationController
   end
 
   def register_vote(category)
-    vote = Vote.new(vote_params)
-    vote.user = current_user
-    vote.category = category
-    @track.votes << vote
+    @vote = Vote.new(vote_params)
+    @vote.user = current_user
+    @vote.category = category
+    @track.votes << @vote
   end
 
   def act_on_track_from_playlist?(category)

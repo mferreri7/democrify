@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       member do
         post 'vote_move'
         post 'vote_delete'
+        post 'save_to_library'
       end
     end
   end

@@ -54,10 +54,18 @@
     </div>
   </div>
   <% if @delete_won || @relocate_won %>
-    <div class="w-100 mt-1 pt-1">
+    <div class="w-100 mt-2 d-flex justify-content-center align-items-end">
       <p class="text-center votes-action m-0">
         This track will be <%= relocate_or_delete(@relocate_won, @delete_won) %> in <%= distance_of_time_in_words_to_now(Date.tomorrow.midnight) %>
+        <% if @track.saved_to_library %>
+          (<i class="fas fa-check-circle"></i> the track has been added to your library)
+        <% end %>
       </p>
+      <% unless %>
+        <span>
+          <%= link_to "Save", save_to_library_playlist_cleaner_track_path(@playlist_cleaner, @track.spotify_id),method: :post, class: "badge badge-pill badge-dark ml-1"  %>
+        </span>
+      <% end %>
     </div>
   <% end %>
 <% end %>
