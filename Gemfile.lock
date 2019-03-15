@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/mferreri7/rspotify
+  remote: https://github.com/mferrerisaza/rspotify
   revision: 27777955669bffff92333521e857b09073a8fa3c
   specs:
     rspotify (2.4.1)
@@ -298,4 +298,4 @@ RUBY VERSION
    ruby 2.4.4p296
 
 BUNDLED WITH
-   1.16.1
+   1.17.3
